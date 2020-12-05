@@ -1,43 +1,48 @@
 import org.junit.Test;
 
-import java.util.Random;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-import org.junit.Assert;
+import org.junit.Before;
 
 public class ValoresTest {
 	
-	
+	private Valores v;
+	@Before
+	public void setup() {
+		v = new Valores();
+		v.ins(1);
+		v.ins(2);
+		v.ins(3);
+		v.ins(4);
+		v.ins(5);
+		v.ins(6);
+		v.ins(7);
+	}
 
 	@Test
 	public void testIns() {
-		Valores v1 = new Valores();
-		Random gerador = new Random();
-		for(int i =0; i<15; i++) {
-			v1.ins(gerador.nextInt());
-		};
-		Assert.assertEquals(10, v1.size());
+		assertEquals(false, v.ins(-3));
+		v.ins(8);
+		assertEquals(8, v.size());
+		v.ins(7);
+		v.ins(6);
+		assertEquals(10, v.size());
+		assertEquals(false, v.ins(5));
 	}
 
 	@Test
 	public void testDel() {
-		Valores v2 = new Valores();
-		Random gerador = new Random();
-		for(int i =0; i<10; i++) {
-			v2.ins(gerador.nextInt());
-		};
-		v2.del(4);
-		v2.del(6);
-		Assert.assertEquals(8, v2.size());
+		assertEquals(7, v.del(6));
+		assertEquals(-1, v.del(6));
 	}
 
 	@Test
 	public void testSize() {
-		Valores v3 = new Valores();
-		Random gerador = new Random();
-		for(int i =0; i<7; i++) {
-			v3.ins(gerador.nextInt());
-		};
-		Assert.assertEquals(7, v3.size());
+		v.ins(7);
+		assertEquals(8, v.size());
+		v.del(7);
+		assertEquals(7, v.size());
 	}
 
 }
